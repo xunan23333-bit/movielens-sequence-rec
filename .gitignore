@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# MovieLens-Small data (distributed by the course; see README)
+ratings.csv
+movies.csv
+tags.csv
+
+# Local working files / documents (not part of the open-source repo)
+_过程文件/
+报告.docx
+阶段汇报.pptx
+分组名单*.docx
+成员分工与小组自评表*.docx
+小组作业说明.pdf
+实验报告格式.doc
+提交清单.md
+交接报告.md
+交接文档.md
+项目结构说明.md
+
+# Outputs
+out/*.pdf
+out/*.npy
+out/prepared.pkl
+
+# Render QA outputs (PDF + per-page PNG dumps)
+*_qa/
+nb_rerun.log
+期末小组作业_提交包.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+实验脚本/二轮/结果/
