@@ -1,6 +1,6 @@
 # MovieLens Sequential Recommendation
 
-A PyTorch course project for predicting movie interactions and producing Top-10 recommendations from user rating histories. The notebook contains data processing, model definitions, training, evaluation, experimental results, and an example recommendation list.
+A PyTorch course project for predicting movie interactions and producing Top-10 recommendations from user rating histories. The notebook contains data processing, model definitions, training, evaluation, experimental results, and Top-10 recommendations for all 610 users.
 
 ## Contents
 
@@ -17,7 +17,7 @@ pip install -r requirements.txt
 jupyter notebook 推荐系统.ipynb
 ```
 
-The original run used an NVIDIA RTX 4060 Laptop GPU and PyTorch 2.12.0 with CUDA 12.6. Training five ensemble models takes substantially longer than training one model. The notebook creates its own `out/` directory. Random seeds are fixed; results can vary across software and hardware.
+The original run used an NVIDIA RTX 4060 Laptop GPU and PyTorch 2.12.0 with CUDA 12.6. Training five ensemble models takes substantially longer than training one model. The notebook writes 6,100 recommendations to `out/top10.csv`. Each user has ten distinct movies, and previous interactions are excluded. Random seeds are fixed; results can vary across software and hardware.
 
 ## Models and evaluation
 
@@ -31,15 +31,18 @@ For each user, the last five interactions are held out for testing and the prece
 |---|---:|---:|---:|
 | Popularity | 0.8426 | 0.3393 | 0.4742 |
 | NCF | 0.8388 | 0.3097 | 0.4508 |
-| 1D-CNN | 0.8133 | 0.2598 | 0.3941 |
+| 1D-CNN | 0.8158 | 0.2543 | 0.3895 |
 | GRU | 0.8310 | 0.2767 | 0.4133 |
-| Simplified SASRec | 0.8473 | 0.3087 | 0.4484 |
-| SASRec + GAN | 0.8482 | 0.3187 | 0.4541 |
-| SASRec + side features | 0.8687 | 0.3776 | 0.5163 |
-| Optimized single model | 0.8661 | 0.5149 | 0.6402 |
-| Five-model ensemble | 0.8841 | 0.5281 | 0.6499 |
+| Simplified SASRec | 0.8482 | 0.3118 | 0.4524 |
+| SASRec + GAN | 0.8481 | 0.3177 | 0.4530 |
+| SASRec + side features | 0.8692 | 0.3786 | 0.5178 |
+| Optimized single model | 0.8665 | 0.5129 | 0.6372 |
+| Three CE models | 0.8650 | 0.5241 | 0.6461 |
+| Five-model ensemble | 0.8838 | 0.5282 | 0.6502 |
 
-For full-catalog leave-one-out ranking, NDCG@10 was 0.0452 for the final model and 0.0185 for popularity. These scores use a different protocol from the sampled-candidate results. A separate validation comparison found a small full-ranking difference whose user-bootstrap interval included zero; the ranking improvement is uncertain.
+For full-catalog leave-one-out ranking, NDCG@10 was 0.0440 for the final model and 0.0185 for popularity. These scores use a different protocol from the sampled-candidate results. A separate validation comparison found a small full-ranking difference whose user-bootstrap interval included zero; the ranking improvement is uncertain.
+
+In the GAN control, both augmentation arms added the same number of interactions to each user and reused the same synthetic rating values. On the 161 short-history audit users, the two-seed mean NDCG@10 was 0.5619 for original training, 0.5722 for GAN, and 0.5615 for the equal-count popularity control. A separate readout ablation held the bidirectional encoder and input fixed. Full-catalog validation NDCG@10 was 0.0962 at the last movie and 0.0994 at the query token. These are validation comparisons.
 
 ## References
 
