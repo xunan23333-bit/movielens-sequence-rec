@@ -6,6 +6,8 @@ This PyTorch notebook compares a GRU and single-layer query attention on the sam
 
 Use Python 3.12 with the packages in requirements.txt. Place the provided ratings.csv and movies.csv next to 推荐系统.ipynb. Open the notebook and run all cells from a clean kernel. The notebook uses CUDA when available. It saves the run log and metrics in out/results.json and recommendations in out/top10.csv.
 
+A second clean CUDA run completed all cells and selected 20 interactions, no decay, and both side features. The table below records the saved notebook run. Exact scores and the selected window can vary even with the same seeds. The second run also improved top-ten ranking with the selected setting and did not establish a gain from GAN augmentation.
+
 ## Evaluation
 
 For each user the last five ratings are test targets and the preceding five are validation targets. Each sampled evaluation compares five targets and 100 fixed negatives. AUC pools user-candidate scores. Full-catalog NDCG uses the same five targets, filtering other known items. Earlier runs had inspected these test interactions.
