@@ -10,13 +10,13 @@ Use Python 3.12 with the packages in requirements.txt. Place the provided rating
 
 For each user the last five ratings are test targets and the preceding five are validation targets. Each sampled evaluation compares five targets and 100 fixed negatives. AUC pools user-candidate scores. Full-catalog NDCG uses the same five targets, filtering other known items. Earlier runs had inspected these test interactions.
 
-The matched comparison uses 40 interactions, 64 dimensions, sampled cross-entropy and no side features. The chosen attention setting is **40 interactions, decay 0.95, side features: genres**. Values below are means across seeds 42 and 7.
+The matched comparison uses 40 interactions, 64 dimensions, sampled cross-entropy and no side features. The chosen attention setting is **40 interactions, decay 0.95, side features: both**. Values below are means across seeds 42 and 7.
 
 | Model | AUC | MAP@10 | NDCG@10 | Full NDCG@10 |
 | --- | ---: | ---: | ---: | ---: |
-| GRU | 0.8838 | 0.4470 | 0.5744 | 0.0482 |
-| Query attention, matched settings | 0.8944 | 0.4783 | 0.6068 | 0.0494 |
-| Query attention, selected settings | 0.8928 | 0.4988 | 0.6242 | 0.0578 |
+| GRU | 0.8841 | 0.4476 | 0.5752 | 0.0491 |
+| Query attention, matched settings | 0.8934 | 0.4750 | 0.6026 | 0.0513 |
+| Query attention, selected settings | 0.8717 | 0.5034 | 0.6284 | 0.0613 |
 
 GAN augmentation and an equal-count popularity control share a backbone and match the added interactions and ratings per user. Both controls add 8650 interactions. See the notebook for the short- and long-history validation results.
 
